@@ -37,6 +37,34 @@ The following skills and tools are used for analysis:
     SELECT \* FROM duplicate_check WHERE rn > 1;
     ```
 
+  - Filled the "year" column that is null value to date released of platform
+
+    ```sql
+    UPDATE sales
+    SET "year" =
+    CASE
+        WHEN platform = '2600' THEN 1977
+        WHEN platform = 'GB' THEN 1989
+        WHEN platform = 'PS' THEN 1994
+        WHEN platform = 'N64' THEN 1996
+        WHEN platform = 'GBA' THEN 2001
+        WHEN platform = 'GC' THEN 2001
+        WHEN platform = 'PS2' THEN 2000
+        WHEN platform = 'XB' THEN 2001
+        WHEN platform = 'PC' THEN 2000
+        WHEN platform = 'PS3' THEN 2006
+        WHEN platform = 'PSP' THEN 2004
+        WHEN platform = 'DS' THEN 2004
+        WHEN platform = 'Wii' THEN 2006
+        WHEN platform = 'X360' THEN 2005
+        WHEN platform = '3DS' THEN 2011
+        WHEN platform = 'PSV' THEN 2011
+        ELSE "year"   -- keep existing values unchanged
+    END
+    WHERE "year" IS NULL;
+
+    ```
+
 - **Load**: postgreSQL, Dvbeaver
 
   - Loaded the cleaned data to the videogames_dw (Data Warehouse)
